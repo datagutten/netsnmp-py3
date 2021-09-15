@@ -48,3 +48,13 @@ jobs:
         run: |
           pip install -r requirements.txt
           python setup.py --basedir=./net-snmp-5.9.1 --libdir=$HOME/opt/lib build_ext -i
+
+      - name: Package
+        run: |
+          python setup.py --basedir=./net-snmp-5.9.1 --libdir=$HOME/opt/lib bdist
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: bdit
+          path: dist
+
