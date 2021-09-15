@@ -26,28 +26,25 @@ jobs:
           export CZMQ411_MD5SUM='6d3a6fdd25c2bb29897c53670dce97bf'
           export NETSNMP573_MD5SUM='d4a3459e1577d0efa8d96ca70a885e53'
           export PKG_CONFIG_PATH=$HOME/opt/lib/pkgconfig
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/lib:./net-snmp-5.7.3/snmplib/.libs
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/lib:./net-snmp-5.9.1/snmplib/.libs
           mkdir $HOME/opt
 
       - name: ZeroMQ 4.2.5 and CZMQ 4.1.1
         run: |
-          wget --no-check-certificate "https://github.com/zeromq/libzmq/releases/download/v4.2.5/zeromq-4.2.5.tar.gz" -O zeromq-4.2.5.tar.gz
-          test "`md5sum -b zeromq-4.2.5.tar.gz | cut -d\  -f1`"=="$ZMQ425_MD5SUM" || exit 1
-          tar xzf zeromq-4.2.5.tar.gz
-          ( cd zeromq-4.2.5 && ./autogen.sh && ./configure --prefix=$HOME/opt --without-{libsodium,pgm} && make && make install )
-          wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.1.1/czmq-4.1.1.tar.gz" -O czmq-4.1.1.tar.gz
-          test "`md5sum -b czmq-4.1.1.tar.gz | cut -d\  -f1`"=="$CZMQ411_MD5SUM" || exit 1
-          tar xzf czmq-4.1.1.tar.gz
-          ( cd czmq-4.1.1 && ./configure --prefix=$HOME/opt && make && make install )
+          wget --no-check-certificate "https://github.com/zeromq/libzmq/releases/download/v4.3.4/zeromq-4.3.4.tar.gz" -O zeromq-4.3.4.tar.gz
+          tar xzf zeromq-4.3.4.tar.gz
+          ( cd zeromq-4.3.4 && ./configure --prefix=$HOME/opt --without-{libsodium,pgm} && make && make install )
+          wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.2.1/czmq-4.2.1.tar.gz" -O czmq-4.2.1.tar.gz
+          tar xzf czmq-4.2.1.tar.gz
+          ( cd czmq-4.2.1 && ./configure --prefix=$HOME/opt && make && make install )
 
       - name: Latest NET-SNMP
         run: |
-          wget "http://sourceforge.net/projects/net-snmp/files/net-snmp/5.7.3/net-snmp-5.7.3.tar.gz/download" -O net-snmp-5.7.3.tar.gz
-          test "`md5sum -b net-snmp-5.7.3.tar.gz | cut -d\  -f1`"=="$NETSNMP573_MD5SUM" || exit 1
-          tar xzf net-snmp-5.7.3.tar.gz
-          ( cd net-snmp-5.7.3 && ./configure --enable-ipv6 --with-defaults --disable-embedded-perl --disable-as-needed && make )
+          wget "http://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
+          tar xzf net-snmp-5.9.1.tar.gz
+          ( cd net-snmp-5.9.1 && ./configure --enable-ipv6 --with-defaults --disable-embedded-perl --disable-as-needed && make )
 
       - name: Build
         run: |
           pip install -r requirements.txt
-          python setup.py --basedir=./net-snmp-5.7.3 --incdir=$HOME/opt/include --libdir=$HOME/opt/lib build_ext -i
+          python setup.py --basedir=./net-snmp-5.9.1 --incdir=$HOME/opt/include --libdir=$HOME/opt/lib build_ext -i
