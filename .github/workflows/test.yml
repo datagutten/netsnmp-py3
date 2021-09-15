@@ -55,6 +55,6 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: bdit
+          name: bdist-${{ matrix.python-version }}
           path: dist
 
