@@ -51,12 +51,11 @@ jobs:
 
       - name: Package
         run: |
-          python setup.py --basedir=./net-snmp-5.9.1 --libdir=$HOME/opt/lib bdist
           pip install wheel
           python setup.py --basedir=./net-snmp-5.9.1 --libdir=$HOME/opt/lib bdist_wheel
 
       - uses: actions/upload-artifact@v2
         with:
-          name: bdist-${{ matrix.python-version }}
+          name: net-snmp-wheels
           path: dist
 
