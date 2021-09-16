@@ -30,11 +30,6 @@ jobs:
 
       - name: mkdir
         run: |
-          export ZMQ425_MD5SUM='a1c95b34384257e986842f4d006957b8'
-          export CZMQ411_MD5SUM='6d3a6fdd25c2bb29897c53670dce97bf'
-          export NETSNMP573_MD5SUM='d4a3459e1577d0efa8d96ca70a885e53'
-          export PKG_CONFIG_PATH=$HOME/opt/lib/pkgconfig
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/lib:./net-snmp-5.9.1/snmplib/.libs
           mkdir $HOME/opt
 
       - name: ZeroMQ 4.2.5 and CZMQ 4.1.1
