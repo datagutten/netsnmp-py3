@@ -58,8 +58,8 @@ pprint(incdirs)
 # libdirs+=_libdirs
 
 # Asynchronous IPC
-libs.append('zmq')
-libs.append('czmq')
+# libs.append('zmq')
+# libs.append('czmq')
 
 setup(
     name="netsnmp-py",
