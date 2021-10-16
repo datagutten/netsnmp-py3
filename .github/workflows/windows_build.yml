@@ -8,11 +8,16 @@ jobs:
     runs-on: windows-2019
 
     steps:
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - name: ZeroMQ 4.2.5 and CZMQ 4.1.1
         run: |
           wget --no-check-certificate "https://github.com/zeromq/libzmq/releases/download/v4.3.4/zeromq-4.3.4.tar.gz" -O zeromq-4.3.4.tar.gz
           tar xzf zeromq-4.3.4.tar.gz
-          ( cd zeromq-4.3.4 && ./configure --without-{libsodium,pgm} )
+          cd zeromq-4.3.4
+          ./configure --without-{libsodium,pgm}
+          cd ..
           wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.2.1/czmq-4.2.1.tar.gz" -O czmq-4.2.1.tar.gz
           tar xzf czmq-4.2.1.tar.gz
           ( cd czmq-4.2.1 && ./configure )
