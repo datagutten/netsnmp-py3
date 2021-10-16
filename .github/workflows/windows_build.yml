@@ -12,12 +12,19 @@ jobs:
       - name: Install wget
         run: choco install wget
 
-      - name: Configure ZeroMQ
-        run: |
-          bash configure_zeromq.sh
+      - name: Checkout libzmq
+        uses: actions/checkout@v2
+        with:
+          repository: zeromq/libzmq
+          ref: v4.3.4
+          path: libzmq
 
       - name: Make ZeroMQ
-        shell: cmd
         run: |
-          cd zeromq-4.3.4
-          cmake -G "NMake Makefiles" -D WITH_PERF_TOOL=OFF -D ZMQ_BUILD_TESTS=OFF -D ENABLE_CPACK=OFF -D CMAKE_BUILD_TYPE=Release
+          cd libzmq
+          mkdir build
+          cd build
+          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
+          cmake --build . --config Release --target install
+          cd ..\..\
+
