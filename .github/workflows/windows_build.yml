@@ -37,7 +37,7 @@ jobs:
 
       - name: Make czmq
         run: |
-          cd $GITHUB_WORKSPACE\czmq
+          cd czmq
           mkdir build
           cd build
           cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
