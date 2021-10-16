@@ -20,5 +20,4 @@ jobs:
         shell: cmd
         run: |
           cd zeromq-4.3.4
-          make
-          make install
+          cmake -G "NMake Makefiles" -D WITH_PERF_TOOL=OFF -D ZMQ_BUILD_TESTS=OFF -D ENABLE_CPACK=OFF -D CMAKE_BUILD_TYPE=Release
