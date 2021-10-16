@@ -58,5 +58,5 @@ jobs:
 
       - name: Copy files
         run: |
-          cp -r library ${{ github.workspace }}/netsmp/net-snmp
-          cp -r ../library ${{ github.workspace }}/netsmp/net-snmp
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/library ${{ github.workspace }}/netsmp/net-snmp
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/library ${{ github.workspace }}/netsmp/net-snmp
