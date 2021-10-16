@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  nobuild:
     runs-on: windows-2019
 
     steps:
@@ -22,15 +22,6 @@ jobs:
           ref: v4.3.4
           path: libzmq
 
-      - name: Make ZeroMQ
-        run: |
-          cd libzmq
-          mkdir build
-          cd build
-          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DWITH_LIBSODIUM=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
-          cmake --build . --config Release --target install
-          cd ..\..\
-
       - name: Checkout czmq
         uses: actions/checkout@v2
         with:
@@ -38,22 +29,11 @@ jobs:
           ref: v4.2.1
           path: czmq
 
-      - name: Make czmq
-        run: |
-          cd czmq
-          mkdir build
-          cd build
-          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
-          cmake --build . --config Release
-          cd ..\..\
-
-      - name: Make NET-SNMP
+      - name: Get NET-SNMP
         run: |
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
           cd net-snmp-5.9.1\win32
-          dir
-          echo f|perl build.pl
 
       - name: Copy files
         run: |
