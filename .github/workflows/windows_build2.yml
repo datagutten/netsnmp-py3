@@ -36,6 +36,10 @@ jobs:
 
       - name: Copy files
         run: |
-          dir
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/library ${{ github.workspace }}/netsmp/net-snmp
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/library ${{ github.workspace }}/netsmp/net-snmp
+          dir net-snmp-5.9.1
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/include/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
+
+      - name: Python build
+        run: |
+          python setup.py build_ext
