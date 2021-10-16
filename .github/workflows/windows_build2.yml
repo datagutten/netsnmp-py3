@@ -34,7 +34,9 @@ jobs:
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz -C ${{ github.workspace }}
           mv net-snmp-5.9.1 net-snmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
 
       - name: Python build
         run: |
-          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include;${{ github.workspace }}/net-snmp/win32;${{ github.workspace }}/net-snmp/include
+          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include
