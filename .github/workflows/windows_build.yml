@@ -42,9 +42,12 @@ jobs:
           cd build
           cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
           cmake --build . --config Release
+          cd ..\..\
 
       - name: Make NET-SNMP
         run: |
           wget "http://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
-          ( cd net-snmp-5.9.1 && ./configure --enable-ipv6 --with-defaults --disable-embedded-perl --disable-as-needed && make )
+          cd net-snmp-5.9.1
+          ./configure --enable-ipv6 --with-defaults --disable-embedded-perl --disable-as-needed
+          make
