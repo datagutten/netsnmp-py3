@@ -49,7 +49,7 @@ jobs:
 
       - name: Make NET-SNMP
         run: |
-          set
+          export
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
           cd net-snmp-5.9.1\win32
