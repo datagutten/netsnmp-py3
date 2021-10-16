@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: windows-2019
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Add msbuild to PATH
@@ -16,7 +19,6 @@ jobs:
           wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.2.1/czmq-4.2.1.tar.gz" -O czmq-4.2.1.tar.gz
           tar xzf czmq-4.2.1.tar.gz
           ( cd czmq-4.2.1 && ./configure )
-
           wget --no-check-certificate "https://github.com/zeromq/libzmq/releases/download/v4.3.4/zeromq-4.3.4.tar.gz" -O zeromq-4.3.4.tar.gz
           tar xzf zeromq-4.3.4.tar.gz
           cd zeromq-4.3.4
