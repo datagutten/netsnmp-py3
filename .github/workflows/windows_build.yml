@@ -56,5 +56,5 @@ jobs:
           echo f|build.bat
 
       - name: Copy files
-        cp -r library $GITHUB_WORKSPACE/netsmp/net-snmp
-        cp -r ../library $GITHUB_WORKSPACE/netsmp/net-snmp
+        cp -r library ${{ env.$GITHUB_WORKSPACE }}/netsmp/net-snmp
+        cp -r ../library ${{ env.GITHUB_WORKSPACE }}/netsmp/net-snmp
