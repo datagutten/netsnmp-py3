@@ -1,3 +1,4 @@
+import os.path
 import sys
 
 from setuptools import Extension, find_packages, setup
@@ -44,7 +45,10 @@ incdirs = []
 libs = []
 
 # For _api.h references/travis-ci build
-incdirs+=_incdirs
+
+for folder in _incdirs:
+    incdirs.append(os.path.realpath(folder))
+
 # libdirs+=_libdirs
 
 # Asynchronous IPC
