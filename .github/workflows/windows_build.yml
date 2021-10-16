@@ -62,4 +62,4 @@ jobs:
       - name: Python build
         shell: cmd
         run: |
-          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include
+          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include --noasync
