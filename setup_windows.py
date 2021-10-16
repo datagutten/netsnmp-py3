@@ -1,5 +1,6 @@
 import os.path
 import sys
+from pprint import pprint
 
 from setuptools import Extension, find_packages, setup
 
@@ -45,9 +46,14 @@ incdirs = []
 libs = []
 
 # For _api.h references/travis-ci build
-
+print('Includes:')
+pprint(_incdirs)
 for folder in _incdirs:
+    if not os.path.exists(folder):
+        print('Invalid include folder: %s' % folder)
     incdirs.append(os.path.realpath(folder))
+print('Includes real:')
+pprint(incdirs)
 
 # libdirs+=_libdirs
 
