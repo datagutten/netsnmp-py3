@@ -32,10 +32,10 @@ jobs:
       - name: Get NET-SNMP
         run: |
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
-          tar xzf net-snmp-5.9.1.tar.gz
-          cd net-snmp-5.9.1\win32
+          tar xzf net-snmp-5.9.1.tar.gz -C ${{ github.workspace }}
 
       - name: Copy files
         run: |
-          cp -r library ${{ github.workspace }}/netsmp/net-snmp
-          cp -r ../library ${{ github.workspace }}/netsmp/net-snmp
+          dir
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/library ${{ github.workspace }}/netsmp/net-snmp
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/library ${{ github.workspace }}/netsmp/net-snmp
