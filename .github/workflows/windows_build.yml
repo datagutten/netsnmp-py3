@@ -24,7 +24,21 @@ jobs:
           cd libzmq
           mkdir build
           cd build
-          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
+          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DWITH_LIBSODIUM=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
           cmake --build . --config Release --target install
           cd ..\..\
 
+      - name: Checkout czmq
+        uses: actions/checkout@v2
+        with:
+          repository: zeromq/czmq
+          ref: v4.2.1
+          path: czmq
+
+      - name: Make czmq
+        run: |
+          cd $GITHUB_WORKSPACE\czmq
+          mkdir build
+          cd build
+          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
+          cmake --build . --config Release
