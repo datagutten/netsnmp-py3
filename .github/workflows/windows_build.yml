@@ -52,17 +52,14 @@ jobs:
         run: |
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
-          cd net-snmp-5.9.1\win32
+          mv net-snmp-5.9.1 net-snmp
+          cd net-snmp\win32
           perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp_build
           nmake libsnmp
-          dir
-
-      - name: Copy files
-        run: |
-          dir ${{ github.workspace }}/netsmp_build
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/include/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
 
       - name: Python build
+        shell: cmd
         run: |
-          python setup.py build_ext
+          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include
