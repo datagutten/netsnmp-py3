@@ -9,6 +9,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
+      CLANG_FORMAT: /c/Progra~1/LLVM/bin/clang-format
 
     steps:
       - name: Add msbuild to PATH
