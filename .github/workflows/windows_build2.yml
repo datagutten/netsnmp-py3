@@ -37,4 +37,4 @@ jobs:
 
       - name: Python build
         run: |
-          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include;${{ github.workspace }}/net-snmp/win32/net-snmp;${{ github.workspace }}/net-snmp/include
+          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include;${{ github.workspace }}/net-snmp/win32;${{ github.workspace }}/net-snmp/include
