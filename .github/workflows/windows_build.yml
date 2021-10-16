@@ -53,10 +53,12 @@ jobs:
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
           cd net-snmp-5.9.1\win32
-          perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp
+          perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp_build
           nmake libsnmp
+          dir
 
       - name: Copy files
         run: |
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/library ${{ github.workspace }}/netsmp/net-snmp
+          dir ${{ github.workspace }}/netsmp_build
+          cp -r ${{ github.workspace }}/netsmp_build ${{ github.workspace }}/netsmp/net-snmp
           cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/library ${{ github.workspace }}/netsmp/net-snmp
