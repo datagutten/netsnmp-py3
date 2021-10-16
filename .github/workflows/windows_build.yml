@@ -12,17 +12,13 @@ jobs:
       - name: Install wget
         run: choco install wget
 
-      - name: ZeroMQ 4.2.5 and CZMQ 4.1.1
+      - name: Configure ZeroMQ
         run: |
           bash configure_zeromq.sh
+
+      - name: Make ZeroMQ
+        shell: cmd
+        run: |
           cd zeromq-4.3.4
           make
           make install
-          cd ..
-          wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.2.1/czmq-4.2.1.tar.gz" -O czmq-4.2.1.tar.gz
-          tar xzf czmq-4.2.1.tar.gz
-          cd czmq-4.2.1
-          bash ./configure
-          make
-          make install
-          cd ..
