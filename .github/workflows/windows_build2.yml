@@ -38,7 +38,7 @@ jobs:
         run: |
           dir net-snmp-5.9.1
           cp -r ${{ github.workspace }}/net-snmp-5.9.1/win32/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
-          cp -r ${{ github.workspace }}/net-snmp-5.9.1/include/net-snmp/
+          cp -r ${{ github.workspace }}/net-snmp-5.9.1/include/net-snmp/ ${{ github.workspace }}/netsnmp/net-snmp
           dir ${{ github.workspace }}/netsnmp/net-snmp
 
       - name: Python build
