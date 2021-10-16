@@ -14,6 +14,9 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
 
+      - name: Install wget
+        run: choco install wget
+
       - name: ZeroMQ 4.2.5 and CZMQ 4.1.1
         run: |
           wget --no-check-certificate "https://github.com/zeromq/czmq/releases/download/v4.2.1/czmq-4.2.1.tar.gz" -O czmq-4.2.1.tar.gz
