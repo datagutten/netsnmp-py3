@@ -24,6 +24,10 @@ jobs:
       - name: Update setuptools
         run: pip install -U setuptools
 
+      - uses: actions/checkout@v2
+      - name: Install wget
+        run: choco install wget
+
       - name: Patch distutils
         shell: bash
         run: |
@@ -31,10 +35,6 @@ jobs:
           patch < patch.diff
         working-directory: C:\hostedtoolcache\windows\Python\3.7.9\x64\lib\distutils
         if: ${{ matrix.python-version == '3.7' }}
-
-      - uses: actions/checkout@v2
-      - name: Install wget
-        run: choco install wget
 
       - name: Checkout libzmq
         uses: actions/checkout@v2
