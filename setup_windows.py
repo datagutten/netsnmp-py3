@@ -33,7 +33,7 @@ for arg in args:
 
 if intree:
     # print(basedir + '/net-snmp-config --libs')
-    script = 'bash ' + os.path.join(basedir, 'net-snmp-config')
+    script = 'bash ' + os.path.join(basedir, 'net-snmp-config.in')
     print(script)
     netsnmp_libs = os.popen(script + ' --libs').read()
     libdir = os.popen(script + ' --build-lib-dirs ' + basedir).read()
