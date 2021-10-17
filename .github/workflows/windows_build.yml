@@ -48,6 +48,12 @@ jobs:
           cmake --build . --config Release
           cd ..\..\
 
+      - uses: actions/upload-artifact@v2
+        name: Upload ZMQ
+        with:
+          name: libzmq
+          path: C:\libzmq
+
       - name: Make NET-SNMP
         run: |
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
@@ -58,6 +64,12 @@ jobs:
           nmake libsnmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
+
+      - uses: actions/upload-artifact@v2
+        name: Upload NET-SNMP
+        with:
+          name: libzmq
+          path: ${{ github.workspace }}/net-snmp
 
       - name: Python build
         shell: bash
