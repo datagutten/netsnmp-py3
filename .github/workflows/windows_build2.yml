@@ -38,6 +38,6 @@ jobs:
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
 
       - name: Python build
-        shell: cmd
+        shell: bash
         run: |
-          python setup_windows.py build_ext --include-dirs=${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include
+          python setup_windows.py build_ext --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include"
