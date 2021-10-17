@@ -1,4 +1,5 @@
 import os.path
+import re
 import sys
 from pprint import pprint
 
@@ -15,6 +16,7 @@ args = sys.argv[:]
 for arg in args:
     if '--basedir' in arg:
         basedir = arg.split('=')[1]
+        basedir = os.path.realpath(basedir)
         sys.argv.remove(arg)
         intree=1
     if '--incdir' in arg:
@@ -29,23 +31,27 @@ for arg in args:
         inc = arg.split('=')[1]
         _incdirs += inc.split(';')
 
-
-
-# if intree:
-#     netsnmp_libs = os.popen(basedir+'/net-snmp-config --libs').read()
-#     libdir = os.popen(basedir+'/net-snmp-config --build-lib-dirs '+basedir).read()
-#     incdir = os.popen(basedir+'/net-snmp-config --build-includes '+basedir).read()
-#     libs = re.findall(r"-l(\S+)", netsnmp_libs)
-#     libdirs = re.findall(r"-L(\S+)", libdir)
-#     incdirs = re.findall(r"-I(\S+)", incdir)
-# else:
-#     netsnmp_libs = os.popen('net-snmp-config --libs').read()
-#     libdirs = re.findall(r"-L(\S+)", netsnmp_libs)
-incdirs = []
-#     libs = re.findall(r" -l(\S+)", netsnmp_libs)
-libs = []
+if intree:
+    # print(basedir + '/net-snmp-config --libs')
+    script = 'bash ' + os.path.join(basedir, 'net-snmp-config')
+    print(script)
+    netsnmp_libs = os.popen(script + ' --libs').read()
+    libdir = os.popen(script + ' --build-lib-dirs ' + basedir).read()
+    incdir = os.popen(script + ' --build-includes ' + basedir).read()
+    libs = re.findall(r"-l(\S+)", netsnmp_libs)
+    libdirs = re.findall(r"-L(\S+)", libdir)
+    incdirs = re.findall(r"-I(\S+)", incdir)
+    print(incdirs)
+else:
+    netsnmp_libs = os.popen('net-snmp-config --libs').read()
+    libdirs = re.findall(r"-L(\S+)", netsnmp_libs)
+    incdirs = []
+    libs = re.findall(r" -l(\S+)", netsnmp_libs)
 
 # For _api.h references/travis-ci build
+# incdirs += _incdirs
+libdirs += _libdirs
+
 print('Includes:')
 pprint(_incdirs)
 for folder in _incdirs:
@@ -54,12 +60,14 @@ for folder in _incdirs:
     incdirs.append(os.path.realpath(folder))
 print('Includes real:')
 pprint(incdirs)
+print('Libdirs', libdirs)
+print('libs', libs)
 
 # libdirs+=_libdirs
 
 # Asynchronous IPC
-# libs.append('zmq')
-# libs.append('czmq')
+libs.append('zmq')
+libs.append('czmq')
 
 setup(
     name="netsnmp-py",
@@ -78,7 +86,7 @@ setup(
                   "netsnmp/get_async.c",
                   "netsnmp/interface.c",
                   "netsnmp/_api.c"],
-                 # library_dirs=libdirs,
+                 library_dirs=libdirs,
                  include_dirs=incdirs,
                  libraries=libs)
     ],
