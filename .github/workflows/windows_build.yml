@@ -68,7 +68,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: Upload NET-SNMP
         with:
-          name: libzmq
+          name: netsnmp
           path: ${{ github.workspace }}/net-snmp
 
       - name: Python build
