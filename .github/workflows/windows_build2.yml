@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Update setuptools
+        run: pip install -U setuptools
+
       - uses: actions/checkout@v2
       - name: Install wget
         run: choco install wget
