@@ -1,0 +1,12 @@
+--- include/czmq_prelude.h
++++ include/czmq_prelude.h
+@@ -571,7 +571,9 @@ typedef intptr_t ssize_t;
+     typedef unsigned __int32 uint32_t;
+     typedef unsigned __int64 uint64_t;
+ #   endif
++#   if ((!defined (ZMQ_DEFINED_STDINT)
+     typedef uint32_t in_addr_t;
++#   endif
+ #   if (!defined (PRId8))
+ #       define PRId8    "d"
+ #   endif

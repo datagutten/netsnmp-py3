@@ -126,6 +126,10 @@ jobs:
           name: netsnmp
           path: ${{ github.workspace }}/net-snmp
 
+      - name: Patch CZMQ
+        shell: bash
+        run: patch ${{ github.workspace }}/czmq/include/czmq_prelude.h -i uint32_t.patch
+
       - name: Python build
         shell: bash
         run: |
