@@ -24,6 +24,13 @@ jobs:
       - name: Update setuptools
         run: pip install -U setuptools
 
+      - name: Patch distutils
+        run: |
+          wget https://bugs.python.org/file40608/patch.diff
+          patch < patch.diff
+        working-directory: C:\hostedtoolcache\windows\Python\3.7.9\x64\lib\distutils
+        if: ${{ matrix.python-version == '3.7' }}
+
       - uses: actions/checkout@v2
       - name: Install wget
         run: choco install wget
