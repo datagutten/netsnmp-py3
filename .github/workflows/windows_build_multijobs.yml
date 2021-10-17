@@ -129,4 +129,4 @@ jobs:
       - name: Python build
         shell: bash
         run: |
-          python setup_windows.py build_ext --basedir="${{ github.workspace }}/net-snmp" --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" -D WIN32
+          python setup_windows.py build_ext --basedir="${{ github.workspace }}/net-snmp" --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" -D WIN32 -D ZMQ_DEFINED_STDINT
