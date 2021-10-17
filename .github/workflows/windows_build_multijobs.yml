@@ -1,0 +1,133 @@
+name: Windows build
+on:
+  push:
+  pull_request:
+
+jobs:
+  build_zeromq:
+    runs-on: windows-2019
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Checkout libzmq
+        uses: actions/checkout@v2
+        with:
+          repository: zeromq/libzmq
+          ref: v4.3.4
+          path: libzmq
+
+      - name: Make ZeroMQ
+        run: |
+          cd libzmq
+          mkdir build
+          cd build
+          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DWITH_LIBSODIUM=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
+          cmake --build . --config Release --target install
+
+      - name: Upload ZeroMQ installation
+        uses: actions/upload-artifact@v2
+        with:
+          name: zeromq-install
+          path: C:\libzmq
+
+      - name: Upload ZeroMQ source folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: zeromq-source
+          path: ${{ github.workspace }}/libzmq
+
+  build_czmq:
+    runs-on: windows-2019
+    name: Build CZMQ
+    needs: build_zeromq
+
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Download ZeroMQ installation
+        uses: actions/download-artifact@v2
+        with:
+          name: zeromq-install
+          path: C:\libzmq
+
+      - name: Checkout czmq
+        uses: actions/checkout@v2
+        with:
+          repository: zeromq/czmq
+          ref: v4.2.1
+          path: czmq
+
+      - name: Make czmq
+        run: |
+          cd czmq
+          mkdir build
+          cd build
+          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
+          cmake --build . --config Release
+
+      - uses: actions/upload-artifact@v2
+        name: Upload czmq
+        with:
+          name: czmq
+          path: ${{ github.workspace }}/czmq
+
+  build_netsnmp:
+    runs-on: windows-2019
+    steps:
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Install wget
+        run: choco install wget
+
+      - name: Make NET-SNMP
+        run: |
+          wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
+          tar xzf net-snmp-5.9.1.tar.gz
+          mv net-snmp-5.9.1 net-snmp
+          cd net-snmp\win32
+          perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp_build
+          nmake libsnmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
+          cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
+
+      - uses: actions/upload-artifact@v2
+        name: Upload NET-SNMP
+        with:
+          name: netsnmp
+          path: ${{ github.workspace }}/net-snmp
+
+  build_python:
+    name: Build Python package
+    runs-on: windows-2019
+    needs:
+      - build_zeromq
+      - build_czmq
+      - build_netsnmp
+
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/checkout@v2
+
+      - name: Download ZeroMQ folder
+        uses: actions/download-artifact@v2
+        with:
+          name: zeromq-source
+          path: ${{ github.workspace }}/libzmq
+
+      - uses: actions/download-artifact@v2
+        name: Download czmq
+        with:
+          name: czmq
+          path: ${{ github.workspace }}/czmq
+
+      - uses: actions/download-artifact@v2
+        name: Download NET-SNMP
+        with:
+          name: netsnmp
+          path: ${{ github.workspace }}/net-snmp
+
+      - name: Python build
+        shell: bash
+        run: |
+          python setup_windows.py build_ext --basedir="${{ github.workspace }}/net-snmp" --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include"
