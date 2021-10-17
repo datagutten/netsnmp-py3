@@ -13,7 +13,7 @@
      typedef unsigned __int32 uint32_t;
      typedef unsigned __int64 uint64_t;
  #   endif
-+#   if ((!defined (ZMQ_DEFINED_STDINT)
++#   if (!defined (ZMQ_DEFINED_STDINT))
      typedef uint32_t in_addr_t;
 +#   endif
  #   if (!defined (PRId8))
