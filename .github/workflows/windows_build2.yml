@@ -25,6 +25,7 @@ jobs:
         run: pip install -U setuptools
 
       - name: Patch distutils
+        shell: bash
         run: |
           wget https://bugs.python.org/file40608/patch.diff
           patch < patch.diff
