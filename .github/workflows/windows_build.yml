@@ -65,6 +65,11 @@ jobs:
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
 
+      - name: Configure NET-SNMP
+        shell: bash
+        working-directory: ${{ github.workspace }}/net-snmp
+        run: ./configure
+
       - uses: actions/upload-artifact@v2
         name: Upload NET-SNMP
         with:
