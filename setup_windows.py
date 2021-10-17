@@ -63,6 +63,8 @@ pprint(incdirs)
 print('Libdirs', libdirs)
 print('libs', libs)
 
+libdirs.append(os.path.join(basedir, 'win32', 'lib', 'release'))
+
 # libdirs+=_libdirs
 
 # Asynchronous IPC
