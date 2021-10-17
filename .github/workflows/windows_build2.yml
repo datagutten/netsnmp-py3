@@ -1,4 +1,4 @@
-name: Windows build
+name: Windows build only python
 on:
   push:
   pull_request:

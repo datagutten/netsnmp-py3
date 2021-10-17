@@ -1,4 +1,4 @@
-name: Windows build
+name: Windows build multiple jobs
 on:
   push:
   pull_request:
@@ -129,4 +129,4 @@ jobs:
       - name: Python build
         shell: bash
         run: |
-          python setup_windows.py build_ext --basedir="${{ github.workspace }}/net-snmp" --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include"
+          python setup_windows.py build_ext --basedir="${{ github.workspace }}/net-snmp" --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" -D WIN32
