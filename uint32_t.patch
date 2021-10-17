@@ -1,5 +1,14 @@
 --- include/czmq_prelude.h
 +++ include/czmq_prelude.h
+@@ -553,7 +553,7 @@ typedef struct {
+     typedef unsigned long ulong;
+     typedef unsigned int  uint;
+ #   if (!defined (__MINGW32__))
+-    typedef int mode_t;
++    //typedef int mode_t;
+ #     if !defined (_SSIZE_T_DEFINED)
+ typedef intptr_t ssize_t;
+ #       define _SSIZE_T_DEFINED
 @@ -571,7 +571,9 @@ typedef intptr_t ssize_t;
      typedef unsigned __int32 uint32_t;
      typedef unsigned __int64 uint64_t;
