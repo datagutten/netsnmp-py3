@@ -230,3 +230,9 @@ jobs:
       - name: Install wheel for Python 3.9
         if: ${{ matrix.python-version == 3.9 }}
         run: pip install wheels/netsnmp_py-0.5.2-cp39-cp39-win_amd64.whl
+
+      - name: Run API test
+        run: python test_api.py
+
+      - name: Run async test
+        run: python test_async.py
