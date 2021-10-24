@@ -37,7 +37,7 @@ for arg in args:
         _incdirs += inc.split(';')
     if '--library-dirs' in arg:
         inc = arg.split('=')[1]
-        _libdirs += inc.split(':')
+        _libdirs += inc.split(';')
 
 
 incdirs = verify_folders(_incdirs)
