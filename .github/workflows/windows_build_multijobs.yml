@@ -122,6 +122,11 @@ jobs:
   build_python:
     name: Build Python package
     runs-on: windows-2019
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ 3.7, 3.8, 3.9 ]
+
     needs:
       - build_zeromq
       - build_czmq
@@ -130,6 +135,11 @@ jobs:
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Download ZeroMQ folder
         uses: actions/download-artifact@v2
