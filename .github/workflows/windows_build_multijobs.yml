@@ -184,9 +184,10 @@ jobs:
           cp -R netsnmp build_custom/netsnmp
           cp -R libzmq build_custom/netsnmp
           cd build_custom
-          tar -czf netsnmp-${{ matrix.python-version }}.tgz netsnmp
+          tar -cvzf netsnmp-py${{ matrix.python-version }}.tgz netsnmp
 
       - uses: actions/upload-artifact@v2
+        name: Upload tgz
         with:
           name: build_custom
           path: build_custom/netsnmp-py${{ matrix.python-version }}.tgz
