@@ -101,7 +101,7 @@ jobs:
 
       - name: Configure NET-SNMP
         working-directory: ${{ github.workspace }}/net-snmp/win32
-        run: perl Configure --config=release --with-sdk --linktype=dynamic --prefix ${{ github.workspace }}/netsmp_build
+        run: perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp_build
 
       - name: Make NET-SNMP
         working-directory: ${{ github.workspace }}/net-snmp/win32
