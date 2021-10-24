@@ -82,7 +82,7 @@ setup(
                  libraries=libs)
     ],
     include_package_data=platform.system() == 'Windows',
-    package_data={"": ['*.dll']},
+    package_data={"": ['dll/*.dll']},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
