@@ -95,13 +95,19 @@ jobs:
       - name: Install wget
         run: choco install wget
 
-      - name: Make NET-SNMP
+      - name: Download NET-SNMP
         run: |
           wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
           tar xzf net-snmp-5.9.1.tar.gz
           mv net-snmp-5.9.1 net-snmp
-          cd net-snmp\win32
-          perl Configure --config=release --with-sdk --linktype=dynamic --prefix ${{ github.workspace }}/netsmp_build
+
+      - name: Configure NET-SNMP
+        working-directory: ${{ github.workspace }}/net-snmp/win32
+        run: perl Configure --config=release --with-sdk --linktype=dynamic --prefix ${{ github.workspace }}/netsmp_build
+
+      - name: Make NET-SNMP
+        working-directory: ${{ github.workspace }}/net-snmp/win32
+        run: |
           nmake libsnmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
