@@ -119,6 +119,7 @@ jobs:
           path: |
             ${{ github.workspace }}/net-snmp/include
             ${{ github.workspace }}/net-snmp/win32/lib/release
+            ${{ github.workspace }}/net-snmp/snmplib
 
   build_python:
     name: Build Python package
