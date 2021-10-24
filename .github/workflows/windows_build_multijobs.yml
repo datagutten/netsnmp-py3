@@ -110,7 +110,9 @@ jobs:
         name: Upload NET-SNMP
         with:
           name: netsnmp
-          path: ${{ github.workspace }}/net-snmp
+          path: |
+            ${{ github.workspace }}/net-snmp/include
+            ${{ github.workspace }}/net-snmp/win32/lib/release
 
   build_python:
     name: Build Python package
