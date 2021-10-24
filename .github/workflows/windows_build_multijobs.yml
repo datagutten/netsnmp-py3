@@ -101,7 +101,7 @@ jobs:
           tar xzf net-snmp-5.9.1.tar.gz
           mv net-snmp-5.9.1 net-snmp
           cd net-snmp\win32
-          perl Configure --config=release --with-sdk --linktype=static --prefix ${{ github.workspace }}/netsmp_build
+          perl Configure --config=release --with-sdk --linktype=dynamic --prefix ${{ github.workspace }}/netsmp_build
           nmake libsnmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
