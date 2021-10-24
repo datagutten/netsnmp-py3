@@ -5,6 +5,7 @@ on:
 
 jobs:
   build_zeromq:
+    name: Build ZeroMQ
     runs-on: windows-2019
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
@@ -72,6 +73,7 @@ jobs:
           path: ${{ github.workspace }}/czmq
 
   build_netsnmp:
+    name: Build NET-SNMP
     runs-on: windows-2019
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
