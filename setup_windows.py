@@ -34,10 +34,10 @@ for arg in args:
         _libdirs.append(libdir)
     if '--include-dirs' in arg:
         inc = arg.split('=')[1]
-        _incdirs += inc.split(';')
+        _incdirs += inc.split(os.pathsep)
     if '--library-dirs' in arg:
         inc = arg.split('=')[1]
-        _libdirs += inc.split(';')
+        _libdirs += inc.split(os.pathsep)
 
 
 incdirs = verify_folders(_incdirs)
