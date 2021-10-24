@@ -184,7 +184,7 @@ jobs:
           cp -R netsnmp build_custom/netsnmp
           cp -R libzmq build_custom/netsnmp
           cd build_custom
-          tar -czf netsnmp-${{ matrix.python-version }}.tgz
+          tar -czf netsnmp-${{ matrix.python-version }}.tgz netsnmp
 
       - uses: actions/upload-artifact@v2
         with:
