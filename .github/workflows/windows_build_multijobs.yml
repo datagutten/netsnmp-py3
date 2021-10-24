@@ -92,14 +92,12 @@ jobs:
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install wget
-        run: choco install wget
-
-      - name: Download NET-SNMP
-        run: |
-          wget "https://sourceforge.net/projects/net-snmp/files/net-snmp/5.9.1/net-snmp-5.9.1.tar.gz/download" -O net-snmp-5.9.1.tar.gz
-          tar xzf net-snmp-5.9.1.tar.gz
-          mv net-snmp-5.9.1 net-snmp
+      - name: Checkout net-snmp
+        uses: actions/checkout@v2
+        with:
+          repository: net-snmp/net-snmp
+          ref: v5.9.1
+          path: net-snmp
 
       - name: Configure NET-SNMP
         working-directory: ${{ github.workspace }}/net-snmp/win32
@@ -162,4 +160,4 @@ jobs:
       - name: Python build
         shell: cmd
         run: |
-          python setup_windows.py build_ext --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" --library-dirs=${{ github.workspace }}/libzmq/lib;${{ github.workspace }}/czmq/lib;${{ github.workspace }}/net-snmp/win32/lib/release -D WIN32 -D ZMQ_DEFINED_STDINT
+          python setup_windows.py build_ext --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" --library-dirs=${{ github.workspace }}/libzmq/lib;${{ github.workspace }}/czmq/lib;${{ github.workspace }}/net-snmp/win32/lib/release;${{ github.workspace }}/net-snmp/agent;${{ github.workspace }}/net-snmp/snmplib -D WIN32 -D ZMQ_DEFINED_STDINT
