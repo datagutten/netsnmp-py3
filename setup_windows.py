@@ -24,10 +24,6 @@ _libdirs = []
 
 args = sys.argv[:]
 for arg in args:
-    if '--basedir' in arg:
-        basedir = arg.split('=')[1]
-        basedir = os.path.realpath(basedir)
-        sys.argv.remove(arg)
     if '--incdir' in arg:
         incdir = arg.split('=')[1]
         sys.argv.remove(arg)
