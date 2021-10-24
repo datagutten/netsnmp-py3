@@ -24,8 +24,8 @@ create_session(PyObject *self, PyObject *args)
     snmp_set_do_debugging(_debug_level==2 ? 1 : 0);
     snmp_disable_stderrlog();
     snmp_set_quick_print(1);
-    set_configuration_directory("/dev/null");
-    netsnmp_set_mib_directory("/dev/null");
+    //set_configuration_directory("/dev/null");
+    //netsnmp_set_mib_directory("/dev/null");
 
     netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DONT_PERSIST_STATE, 1);
     netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DISABLE_PERSISTENT_LOAD, 1);
