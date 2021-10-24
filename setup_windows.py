@@ -58,7 +58,8 @@ if _libdirs and not libdirs:
 
 # Asynchronous IPC
 libs = ['netsnmp', 'zmq', 'czmq']
-libs += ['Ws2_32', 'iphlpapi','Advapi32']
+if platform.system() == 'Windows':
+    libs += ['Ws2_32', 'iphlpapi', 'Advapi32']
 
 setup(
     name="netsnmp-py",
