@@ -63,13 +63,19 @@ jobs:
           cd czmq
           mkdir build
           cd build
-          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq
-          cmake --build . --config Release
+          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq -DCMAKE_INSTALL_PREFIX=C:\czmq
+          cmake --build . --config Release --target install
 
-      - uses: actions/upload-artifact@v2
-        name: Upload czmq
+      - name: Upload CZMQ installation
+        uses: actions/upload-artifact@v2
         with:
-          name: czmq
+          name: czmq-install
+          path: C:\czmq
+
+      - name: Upload CZMQ source folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: czmq-source
           path: ${{ github.workspace }}/czmq
 
   build_netsnmp:
@@ -119,7 +125,7 @@ jobs:
       - uses: actions/download-artifact@v2
         name: Download czmq
         with:
-          name: czmq
+          name: czmq-install
           path: ${{ github.workspace }}/czmq
 
       - uses: actions/download-artifact@v2
