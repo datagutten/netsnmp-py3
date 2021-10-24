@@ -22,7 +22,7 @@ jobs:
           cd libzmq
           mkdir build
           cd build
-          cmake .. -DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DWITH_LIBSODIUM=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
+          cmake .. -DBUILD_STATIC=ON -DBUILD_SHARED=ON -DZMQ_BUILD_TESTS=OFF -DWITH_LIBSODIUM=OFF -DCMAKE_INSTALL_PREFIX=C:\libzmq
           cmake --build . --config Release --target install
 
       - name: Upload ZeroMQ installation
@@ -67,7 +67,7 @@ jobs:
           cd czmq
           mkdir build
           cd build
-          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=OFF -DCMAKE_PREFIX_PATH=C:\libzmq -DCMAKE_INSTALL_PREFIX=C:\czmq
+          cmake .. -DCZMQ_BUILD_SHARED=ON -DCZMQ_BUILD_STATIC=ON -DCMAKE_PREFIX_PATH=C:\libzmq -DCMAKE_INSTALL_PREFIX=C:\czmq
           cmake --build . --config Release --target install
 
       - name: Upload CZMQ installation
