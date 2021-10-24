@@ -241,6 +241,7 @@ jobs:
           path: project
 
       - name: Copy files
+        shell: bash
         run: |
           cp project test_api.py .
           cp project test_async.py .
