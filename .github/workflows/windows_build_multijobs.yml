@@ -183,6 +183,7 @@ jobs:
           cp -R czmq build_custom/netsnmp
           cp -R netsnmp build_custom/netsnmp
           cp -R libzmq build_custom/netsnmp
+          cp -R net-snmp build_custom/netsnmp
           cd build_custom
           tar -czf netsnmp-${{ matrix.python-version }}.tgz netsnmp
 
