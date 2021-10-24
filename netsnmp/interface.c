@@ -167,8 +167,8 @@ build_pdu(PyObject *self, PyObject *args)
    netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DONT_PERSIST_STATE, 1);
    netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DISABLE_PERSISTENT_LOAD, 1);
    netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DISABLE_PERSISTENT_SAVE, 1);
-   netsnmp_set_mib_directory("/dev/null");
-   set_configuration_directory("/dev/null");
+   //netsnmp_set_mib_directory("/dev/null");
+   //set_configuration_directory("/dev/null");
    snmp_sess_init(&nullss);
 
    pdu = snmp_pdu_create(SNMP_MSG_GET);
