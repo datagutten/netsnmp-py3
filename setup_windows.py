@@ -19,7 +19,7 @@ def verify_folders(folders):
 
 VERSION="0.5.2"
 
-_incdirs = []
+_incdirs = ['./netsnmp']
 _libdirs = []
 
 args = sys.argv[:]
