@@ -11,8 +11,8 @@ def verify_folders(folders):
     for folder in folders:
         if not os.path.exists(folder):
             print('Invalid folder: %s' % folder)
-            continue
-        folders_real.append(os.path.realpath(folder))
+        else:
+            folders_real.append(os.path.realpath(folder))
 
     return folders_real
 
@@ -47,6 +47,14 @@ print('Include folders:')
 pprint(incdirs)
 print('Library folders:')
 pprint(libdirs)
+print('Library folders not verified:')
+pprint(_libdirs)
+
+if not incdirs:
+    raise FileNotFoundError('No valid include folders')
+
+if not libdirs:
+    raise FileNotFoundError('No valid library folders')
 
 # Asynchronous IPC
 libs = ['netsnmp', 'zmq', 'czmq']
