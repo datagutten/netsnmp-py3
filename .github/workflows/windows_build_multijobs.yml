@@ -164,7 +164,7 @@ jobs:
 
       - name: Rename ZeroMQ lib
         working-directory: ${{ github.workspace }}/libzmq
-        run: cp lib\libzmq-v142-mt-4_3_4.lib lib\zmq.lib
+        run: cp lib\libzmq-v142-mt-s-4_3_4.lib lib\zmq.lib
 
       - name: Python build
         shell: cmd
