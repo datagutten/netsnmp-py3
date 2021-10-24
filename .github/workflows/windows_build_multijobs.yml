@@ -173,8 +173,11 @@ jobs:
 
       - name: Package
         run: |
+          mkdir dll
+          cp libzmq\bin\libzmq-v142-mt-4_3_4.dll dll
+          cp czmq\bin\libczmq.dll dll
           pip install wheel
-          python setup.py bdist_wheel
+          python setup_windows.py bdist_wheel
 
       - name: Custom package
         shell: bash

@@ -1,5 +1,5 @@
 import os.path
-import re
+import platform
 import sys
 from pprint import pprint
 
@@ -81,6 +81,8 @@ setup(
                  include_dirs=incdirs,
                  libraries=libs)
     ],
+    include_package_data=platform.system() == 'Windows',
+    package_data={"": ['*.dll']},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
