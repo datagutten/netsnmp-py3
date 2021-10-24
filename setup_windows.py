@@ -50,10 +50,10 @@ pprint(libdirs)
 print('Library folders not verified:')
 pprint(_libdirs)
 
-if not incdirs:
+if _incdirs and not incdirs:
     raise FileNotFoundError('No valid include folders')
 
-if not libdirs:
+if _libdirs and not libdirs:
     raise FileNotFoundError('No valid library folders')
 
 # Asynchronous IPC
