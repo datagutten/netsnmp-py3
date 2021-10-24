@@ -32,7 +32,8 @@ jobs:
           path: C:\libzmq
 
       - name: Package source
-        run: tar -czf ${{ github.workspace }}/libzmq.tgz ${{ github.workspace }}/libzmq
+        working-directory: ${{ github.workspace }}
+        run: tar -czf libzmq.tgz libzmq
 
       - name: Upload ZeroMQ source folder
         uses: actions/upload-artifact@v2
@@ -76,7 +77,8 @@ jobs:
           path: C:\czmq
 
       - name: Package source
-        run: tar -czf ${{ github.workspace }}/czmq.tgz ${{ github.workspace }}/czmq
+        working-directory: ${{ github.workspace }}
+        run: tar -czf czmq.tgz czmq
 
       - name: Upload CZMQ source folder
         uses: actions/upload-artifact@v2
