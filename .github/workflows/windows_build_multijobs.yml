@@ -161,3 +161,13 @@ jobs:
         shell: cmd
         run: |
           python setup_windows.py build_ext --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" --library-dirs=${{ github.workspace }}/libzmq/lib;${{ github.workspace }}/czmq/lib;${{ github.workspace }}/net-snmp/win32/lib/release;${{ github.workspace }}/net-snmp/agent;${{ github.workspace }}/net-snmp/snmplib -D WIN32 -D ZMQ_DEFINED_STDINT
+
+      - name: Package
+        run: |
+          pip install wheel
+          python setup.py bdist_wheel
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: net-snmp-wheels
+          path: dist
