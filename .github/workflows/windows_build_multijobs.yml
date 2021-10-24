@@ -197,3 +197,20 @@ jobs:
         with:
           name: net-snmp-wheels
           path: dist
+
+  test_wheel:
+    name: Test wheel
+    runs-on: windows-2019
+
+    needs: build_python
+
+    steps:
+      - uses: actions/download-artifact@v2
+        name: Download wheel
+        with:
+          name: net-snmp-wheels
+          path: wheels
+
+      - name: Install wheel
+        if: ${{ matrix.python-version }}
+        run: pip install wheels/netsnmp_py-0.5.2-cp39-cp39-win_amd64.whl
