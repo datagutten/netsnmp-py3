@@ -214,6 +214,19 @@ jobs:
           name: net-snmp-wheels
           path: wheels
 
-      - name: Install wheel
-        if: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install wheel for Python 3.7
+        if: ${{ matrix.python-version == 3.7 }}
+        run: pip install wheels/netsnmp_py-0.5.2-cp37-cp37-win_amd64.whl
+
+      - name: Install wheel for Python 3.8
+        if: ${{ matrix.python-version == 3.8 }}
+        run: pip install wheels/netsnmp_py-0.5.2-cp38-cp38-win_amd64.whl
+
+      - name: Install wheel for Python 3.9
+        if: ${{ matrix.python-version == 3.9 }}
         run: pip install wheels/netsnmp_py-0.5.2-cp39-cp39-win_amd64.whl
