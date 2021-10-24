@@ -88,7 +88,7 @@ setup(
                   "netsnmp/get_async.c",
                   "netsnmp/interface.c",
                   "netsnmp/_api.c"],
-                 library_dirs=libdirs,
+                 # library_dirs=libdirs,
                  include_dirs=incdirs,
                  libraries=libs)
     ],
