@@ -171,6 +171,9 @@ jobs:
         run: |
           python setup_windows.py build_ext --include-dirs="${{ github.workspace }}/net-snmp/include;${{ github.workspace }}/libzmq/include;${{ github.workspace }}/czmq/include" --library-dirs=${{ github.workspace }}/libzmq/lib;${{ github.workspace }}/czmq/lib;${{ github.workspace }}/net-snmp/win32/lib/release;${{ github.workspace }}/net-snmp/agent;${{ github.workspace }}/net-snmp/snmplib -D WIN32 -D ZMQ_DEFINED_STDINT
 
+      - name: Python load
+        run: python -m netsnmp
+
       - name: Package
         run: |
           pip install wheel
