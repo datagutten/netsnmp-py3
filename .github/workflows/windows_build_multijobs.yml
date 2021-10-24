@@ -31,11 +31,14 @@ jobs:
           name: zeromq-install
           path: C:\libzmq
 
+      - name: Package source
+        run: tar -czf ${{ github.workspace }}/libzmq.tgz ${{ github.workspace }}/libzmq
+
       - name: Upload ZeroMQ source folder
         uses: actions/upload-artifact@v2
         with:
           name: zeromq-source
-          path: ${{ github.workspace }}/libzmq
+          path: ${{ github.workspace }}/libzmq.tgz
 
   build_czmq:
     runs-on: windows-2019
@@ -72,11 +75,14 @@ jobs:
           name: czmq-install
           path: C:\czmq
 
+      - name: Package source
+        run: tar -czf ${{ github.workspace }}/czmq.tgz ${{ github.workspace }}/czmq
+
       - name: Upload CZMQ source folder
         uses: actions/upload-artifact@v2
         with:
           name: czmq-source
-          path: ${{ github.workspace }}/czmq
+          path: ${{ github.workspace }}/czmq.tgz
 
   build_netsnmp:
     name: Build NET-SNMP
