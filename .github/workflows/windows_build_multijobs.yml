@@ -240,7 +240,6 @@ jobs:
           path: project
 
       - name: Copy files
-        shell: bash
         run: |
           cp ${{ github.workspace }}\project\test_api.py .
           cp ${{ github.workspace }}\project\test_async.py .
