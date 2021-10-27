@@ -243,6 +243,7 @@ jobs:
         run: |
           cp ${{ github.workspace }}\project\test_api.py .
           cp ${{ github.workspace }}\project\test_async.py .
+          cp ${{ github.workspace }}\project\async_devtypes.py .
 
       - name: Run API test
         run: python test_api.py
