@@ -173,9 +173,8 @@ jobs:
 
       - name: Package
         run: |
-          mkdir netsnmp\dll
-          cp libzmq\bin\libzmq-v142-mt-4_3_4.dll netsnmp\dll
-          cp czmq\bin\libczmq.dll netsnmp\dll
+          cp libzmq\bin\libzmq-v142-mt-4_3_4.dll netsnmp
+          cp czmq\bin\libczmq.dll netsnmp
           pip install wheel
           python setup_windows.py bdist_wheel
 

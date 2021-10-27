@@ -83,7 +83,7 @@ setup(
                  libraries=libs)
     ],
     include_package_data=platform.system() == 'Windows',
-    package_data={"": ['dll/*.dll']},
+    package_data={"netsnmp": ['*.dll']},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
