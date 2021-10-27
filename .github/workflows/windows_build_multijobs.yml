@@ -242,8 +242,8 @@ jobs:
       - name: Copy files
         shell: bash
         run: |
-          cp project test_api.py .
-          cp project test_async.py .
+          cp ${{ github.workspace }}\project\test_api.py .
+          cp ${{ github.workspace }}\project\test_async.py .
 
       - name: Run API test
         run: python test_api.py
