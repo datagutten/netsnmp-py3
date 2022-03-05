@@ -188,6 +188,12 @@ jobs:
           name: build_custom
           path: ../netsnmp-py${{ matrix.python-version }}.tgz
 
+      - name: Copy DLLs
+        shell: bash
+        run: |
+          cp libzmq\bin\libzmq-v142-mt-4_3_4.dll dist
+          cp czmq\bin\libczmq.dll dist
+
       - uses: actions/upload-artifact@v2
         with:
           name: net-snmp-wheels
