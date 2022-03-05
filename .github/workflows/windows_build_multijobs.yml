@@ -178,22 +178,15 @@ jobs:
           pip install wheel
           python setup_windows.py bdist_wheel
 
-      - name: Custom package
+      - name: Debug package
         shell: bash
-        run: |
-          mkdir -p build_custom/netsnmp
-          cp -R czmq build_custom/netsnmp
-          cp -R netsnmp build_custom/netsnmp
-          cp -R libzmq build_custom/netsnmp
-          cp -R net-snmp build_custom/netsnmp
-          cd build_custom
-          tar -cvzf netsnmp-py${{ matrix.python-version }}.tgz netsnmp
+        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
 
       - uses: actions/upload-artifact@v2
         name: Upload tgz
         with:
           name: build_custom
-          path: build_custom/netsnmp-py${{ matrix.python-version }}.tgz
+          path: ../netsnmp-py${{ matrix.python-version }}.tgz
 
       - uses: actions/upload-artifact@v2
         with:
