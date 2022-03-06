@@ -124,7 +124,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.7, 3.8, 3.9 ]
+        python-version: [ 3.7, 3.8, 3.9, 3.10 ]
 
     needs:
       - build_zeromq
@@ -208,7 +208,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.7, 3.8, 3.9 ]
+        python-version: [ 3.7, 3.8, 3.9, 3.10 ]
 
     steps:
       - uses: actions/download-artifact@v2
@@ -233,6 +233,10 @@ jobs:
       - name: Install wheel for Python 3.9
         if: ${{ matrix.python-version == 3.9 }}
         run: pip install ${{ github.workspace }}\wheels\netsnmp_py-0.5.2-cp39-cp39-win_amd64.whl
+
+      - name: Install wheel for Python 3.10
+        if: ${{ matrix.python-version == 3.10 }}
+        run: pip install ${{ github.workspace }}\wheels\netsnmp_py-0.5.2-cp310-cp310-win_amd64.whl
 
       - uses: actions/checkout@v2
         with:
