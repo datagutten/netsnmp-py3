@@ -164,7 +164,7 @@ jobs:
 
       - name: Remove ssize_t redefinition
         shell: bash
-A        working-directory: ${{ github.workspace }}/czmq/include
+        working-directory: ${{ github.workspace }}/czmq/include
         if: ${{ matrix.python-version == '3.10' }}
         run: sed -s "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
 
