@@ -178,15 +178,15 @@ jobs:
           pip install wheel
           python setup_windows.py bdist_wheel
 
-      - name: Debug package
-        shell: bash
-        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
-
-      - uses: actions/upload-artifact@v2
-        name: Upload tgz
-        with:
-          name: build_custom
-          path: ../netsnmp-py${{ matrix.python-version }}.tgz
+#      - name: Debug package
+#        shell: bash
+#        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
+#
+#      - uses: actions/upload-artifact@v2
+#        name: Upload tgz
+#        with:
+#          name: build_custom
+#          path: ../netsnmp-py${{ matrix.python-version }}.tgz
 
       - name: Copy DLLs
         shell: bash
