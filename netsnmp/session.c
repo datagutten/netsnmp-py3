@@ -17,7 +17,7 @@ create_session(PyObject *self, PyObject *args)
 
   netsnmp_session session, *ss;
 
-    if (!PyArg_ParseTuple(args, "iiissi", &version, &timeout,
+    if (!PyArg_ParseTuple(args, "iiissis", &version, &timeout,
                           &retries, &community, &peer, &_debug_level, &mib_directory)) {
         PyErr_Format(SNMPError, "session: unable to parse tuple");
         return NULL;
