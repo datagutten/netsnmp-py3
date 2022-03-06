@@ -13,10 +13,12 @@ create_session(PyObject *self, PyObject *args)
   int timeout;
   char *peer;
   char *community;
+  char *mib_directory;
+
   netsnmp_session session, *ss;
 
     if (!PyArg_ParseTuple(args, "iiissi", &version, &timeout,
-                          &retries, &community, &peer, &_debug_level)) {
+                          &retries, &community, &peer, &_debug_level, &mib_directory)) {
         PyErr_Format(SNMPError, "session: unable to parse tuple");
         return NULL;
     }
@@ -28,6 +30,7 @@ create_session(PyObject *self, PyObject *args)
     set_configuration_directory("/dev/null");
     netsnmp_set_mib_directory("/dev/null");
     #endif
+    netsnmp_set_mib_directory(mib_directory);
 
     netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DONT_PERSIST_STATE, 1);
     netsnmp_ds_set_boolean(NETSNMP_DS_LIBRARY_ID, NETSNMP_DS_LIB_DISABLE_PERSISTENT_LOAD, 1);
