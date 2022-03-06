@@ -72,16 +72,18 @@ class SNMPSession(object):
     """
     Session based, thread-safe interface
     """
-    def __init__(self, peername, community, version=SNMP_VER['2c'], timeout=0.5, retries=1, debug=0): # pylint: disable=line-too-long
+    def __init__(self, peername, community, version=SNMP_VER['2c'], timeout=0.5, retries=1, debug=0, mib_directory=None): # pylint: disable=line-too-long
         self.debug = debug # 1 for partial debugging, 2 for full NETSNMP debugging
         self.version = version
         self.timeout = int(timeout*1000000) # seconds converted to microseconds
         self.retries = retries
         self.peername = peername
         self.community = community
+        self.mib_directory = mib_directory
         # Define session
         self.sess_ptr = netsnmp.create_session(self.version, self.timeout, self.retries,
-                                               self.community, self.peername, self.debug)
+                                               self.community, self.peername, self.debug,
+                                               self.mib_directory)
         # Internal variables
         self._alive = True
         self._next = False
