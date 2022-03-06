@@ -166,7 +166,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/czmq/include
         if: ${{ matrix.python-version == '3.10' }}
-        run: sed -s "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
+        run: sed -i "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
 
       - name: Rename ZeroMQ lib
         working-directory: ${{ github.workspace }}/libzmq
@@ -184,15 +184,15 @@ jobs:
           pip install wheel
           python setup_windows.py bdist_wheel
 
-#      - name: Debug package
-#        shell: bash
-#        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
-#
-#      - uses: actions/upload-artifact@v2
-#        name: Upload tgz
-#        with:
-#          name: build_custom
-#          path: ../netsnmp-py${{ matrix.python-version }}.tgz
+      #      - name: Debug package
+      #        shell: bash
+      #        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
+      #
+      #      - uses: actions/upload-artifact@v2
+      #        name: Upload tgz
+      #        with:
+      #          name: build_custom
+      #          path: ../netsnmp-py${{ matrix.python-version }}.tgz
 
       - name: Copy DLLs
         shell: bash
