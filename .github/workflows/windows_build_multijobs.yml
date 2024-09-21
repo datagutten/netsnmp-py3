@@ -12,7 +12,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Checkout libzmq
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: zeromq/libzmq
           ref: v4.3.4
@@ -27,7 +27,7 @@ jobs:
           cmake --build . --config Release --target install
 
       - name: Upload ZeroMQ installation
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: zeromq-install
           path: C:\libzmq
@@ -37,7 +37,7 @@ jobs:
         run: tar -czf libzmq.tgz libzmq
 
       - name: Upload ZeroMQ source folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: zeromq-source
           path: ${{ github.workspace }}/libzmq.tgz
@@ -51,13 +51,13 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Download ZeroMQ installation
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: zeromq-install
           path: C:\libzmq
 
       - name: Checkout czmq
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: zeromq/czmq
           ref: v4.2.1
@@ -72,7 +72,7 @@ jobs:
           cmake --build . --config Release --target install
 
       - name: Upload CZMQ installation
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: czmq-install
           path: C:\czmq
@@ -82,7 +82,7 @@ jobs:
         run: tar -czf czmq.tgz czmq
 
       - name: Upload CZMQ source folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: czmq-source
           path: ${{ github.workspace }}/czmq.tgz
@@ -94,7 +94,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       - name: Checkout net-snmp
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: net-snmp/net-snmp
           ref: v5.9.1
@@ -111,7 +111,7 @@ jobs:
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/net-snmp-config.h ${{ github.workspace }}/net-snmp/include/net-snmp
           cp ${{ github.workspace }}/net-snmp/win32/net-snmp/library/snmpv3-security-includes.h ${{ github.workspace }}/net-snmp/include/net-snmp/library
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         name: Upload NET-SNMP
         with:
           name: netsnmp
@@ -134,7 +134,7 @@ jobs:
 
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -142,18 +142,18 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Download ZeroMQ folder
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: zeromq-install
           path: ${{ github.workspace }}/libzmq
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Download czmq
         with:
           name: czmq-install
           path: ${{ github.workspace }}/czmq
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Download NET-SNMP
         with:
           name: netsnmp
@@ -189,7 +189,7 @@ jobs:
 #        shell: bash
 #        run: tar -cvzf ../netsnmp-py${{ matrix.python-version }}.tgz .
 #
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v4
 #        name: Upload tgz
 #        with:
 #          name: build_custom
@@ -201,7 +201,7 @@ jobs:
           cp libzmq/bin/libzmq-v142-mt-4_3_4.dll dist
           cp czmq/bin/libczmq.dll dist
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: net-snmp-wheels
           path: dist
@@ -218,7 +218,7 @@ jobs:
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         name: Download wheel
         with:
           name: net-snmp-wheels
@@ -245,7 +245,7 @@ jobs:
         if: ${{ matrix.python-version == '3.10' }}
         run: pip install ${{ github.workspace }}\wheels\netsnmp_py-0.5.2-cp310-cp310-win_amd64.whl
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           path: project
 
