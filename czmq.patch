@@ -1,0 +1,29 @@
+diff --git a/include/czmq_prelude.h b/include/czmq_prelude.h
+index b4f170d5..d1c5c7de 100644
+--- a/include/czmq_prelude.h
++++ b/include/czmq_prelude.h
+@@ -561,13 +561,13 @@ typedef struct {
+ #   endif
+     typedef unsigned long ulong;
+     typedef unsigned int  uint;
+-#   if (!defined (__MINGW32__))
++/*#   if (!defined (__MINGW32__))
+     typedef int mode_t;
+ #     if !defined (_SSIZE_T_DEFINED)
+ typedef intptr_t ssize_t;
+ #       define _SSIZE_T_DEFINED
+ #     endif
+-#   endif
++#   endif*/
+ #   if ((!defined (__MINGW32__) \
+     || (defined (__MINGW32__) && defined (__IS_64BIT__))) \
+     && !defined (ZMQ_DEFINED_STDINT))
+@@ -580,7 +580,7 @@ typedef intptr_t ssize_t;
+     typedef unsigned __int32 uint32_t;
+     typedef unsigned __int64 uint64_t;
+ #   endif
+-    typedef uint32_t in_addr_t;
++//    typedef uint32_t in_addr_t;
+ #   if (!defined (PRId8))
+ #       define PRId8    "d"
+ #   endif
