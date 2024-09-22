@@ -9,7 +9,7 @@ int bindOid(netsnmp_pdu *pdu, const char *_oidstr, oid *oid_arr_ptr, size_t oid_
     if (snmp_parse_oid(_oidstr, oid_arr_ptr, &oid_arr_len)) {
         snmp_add_null_var(pdu, oid_arr_ptr, oid_arr_len);
     } else {
-        PyErr_Format(SNMPError, "get: unknown object ID for oid (%s)\n", (_oidstr ? _oidstr : "<null>"));
+        PyErr_Format(PyExc_AttributeError, "get: unknown object ID for oid (%s)\n", (_oidstr ? _oidstr : "<null>"));
         return 0;
     }
     return 1;
@@ -44,7 +44,7 @@ get(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "OOO", &session, &oids, &responses)) {
         //snmp_sess_close(ss);
-        PyErr_Format(SNMPError, "get: unable to parse argument tuple\n");
+        PyErr_Format(PyExc_AttributeError, "get: unable to parse argument tuple\n");
         return NULL;
     }
 
@@ -67,10 +67,12 @@ get(PyObject *self, PyObject *args)
             char *_oidstr = (char *)Py_String(oids);
             if (_oidstr) {
                 ret = bindOid(pdu, _oidstr, oid_arr_ptr, oid_arr_len);
-                if (!ret)
+                if (!ret) {
+                    PyErr_SetString(PyExc_AttributeError, "Invalid OID");
                     return NULL;
+                }
             } else {
-                PyErr_Format(SNMPError, "get: unable to convert OID from string\n");
+                PyErr_Format(PyExc_AttributeError, "get: unable to convert OID from string\n");
                 return NULL;
             }
 
@@ -98,12 +100,12 @@ get(PyObject *self, PyObject *args)
 
         // Ops, wrong type
         } else {
-            PyErr_Format(SNMPError, "get: oids wrong type (not str or sequence)\n");
+            PyErr_Format(PyExc_TypeError, "get: oids wrong type (not str or sequence)\n");
             return NULL;
         }
     } else {
         // Nothing here. We should return instead going through everything else.
-        PyErr_Format(SNMPError, "get: error parsing oids argument (oids is null)\n");
+        PyErr_Format(PyExc_TypeError, "get: error parsing oids argument (oids is null)\n");
         return NULL;
     }
 
@@ -126,7 +128,10 @@ get(PyObject *self, PyObject *args)
         if (_debug_level) printf("snmp_syserr: %d\nsnmp_errnum: %d\n", err_num, -snmp_err_num);
         snmp_free_pdu(response);
         //snmp_sess_close(ss);
-        PyErr_Format(SNMPError, "%s\n", err_bufp);
+        if (snmp_err_num == SNMPERR_TIMEOUT)
+            PyErr_SetString(PyExc_TimeoutError, err_bufp);
+        else
+            PyErr_Format(PyExc_RuntimeError, "SNMP error code %d: %s", snmp_err_num, err_bufp);
         return NULL;
     } else {
         /* initialize return tuple:
@@ -166,7 +171,7 @@ get(PyObject *self, PyObject *args)
                 if (!(len > 0)) {
                     snmp_free_pdu(response);
                     //snmp_sess_close(ss);
-                    PyErr_Format(SNMPError, "get: null response (%s)\n", mib_buf);
+                    PyErr_Format(PyExc_RuntimeError, "get: null response (%s)\n", mib_buf);
                     return NULL;
                 } else {
                     /* old attribute methodology:

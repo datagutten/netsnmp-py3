@@ -87,7 +87,7 @@ get_async(PyObject *self, PyObject *args)
   char *snmp_send_err;
 
     if (!PyArg_ParseTuple(args, "Oiiis", &hosttuple, &timeout, &retries, &ZMQ_HWM, &ZMQ_IN)) {
-        PyErr_Format(SNMPError, "get: unable to parse args tuple\n");
+        PyErr_Format(PyExc_AttributeError, "get: unable to parse args tuple\n");
         return NULL;
     }
     _debug_level = 0;
@@ -132,7 +132,7 @@ get_async(PyObject *self, PyObject *args)
       netsnmp_session sess, *ss;
 
       if(!(PyTuple_Check(host))) {
-        PyErr_Format(SNMPError, "get: unable to parse host tuple\n");
+        PyErr_Format(PyExc_AttributeError, "get: unable to parse host tuple\n");
         return NULL;
       }
       char *name = Py_String(PyTuple_GetItem(host, 0));
@@ -188,7 +188,7 @@ get_async(PyObject *self, PyObject *args)
       fds = netsnmp_large_fd_set_select(fds, &lfdset, NULL, NULL, block ? NULL : &timeout);
   
       if (fds < 0) {
-          PyErr_Format(SNMPError, "get: select failed\n");
+          PyErr_Format(PyExc_AttributeError, "get: select failed\n");
           return NULL;
       }
 

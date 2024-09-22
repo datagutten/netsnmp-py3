@@ -17,7 +17,7 @@ create_session(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "iiissi", &version, &timeout,
                           &retries, &community, &peer, &_debug_level)) {
-        PyErr_Format(SNMPError, "session: unable to parse tuple");
+        PyErr_Format(PyExc_AttributeError, "session: unable to parse tuple");
         return NULL;
     }
 
@@ -50,7 +50,7 @@ create_session(PyObject *self, PyObject *args)
 
     ss = snmp_sess_open(&session);
     if (ss == NULL) {
-        PyErr_Format(SNMPError, "Couldn't open SNMP session\n");
+        PyErr_Format(PyExc_RuntimeError, "Couldn't open SNMP session, error %d\n", snmp_errno);
         return NULL;
     }
     if (_debug_level) printf("### created session at %p\n", ss);
@@ -64,7 +64,7 @@ close_session(PyObject *self, PyObject *args)
   netsnmp_session *ss;
 
     if (!PyArg_ParseTuple(args, "O", &session)) {
-        PyErr_Format(SNMPError, "close_session: unable to parse tuple");
+        PyErr_Format(PyExc_AttributeError, "close_session: unable to parse tuple");
         return NULL;
     }
 
