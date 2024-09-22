@@ -165,10 +165,9 @@ jobs:
         run: patch include/czmq_prelude.h -i ${{ github.workspace }}\uint32_t.patch
 
       - name: Patch CZMQ >= 3.10
-        shell: bash
         working-directory: ${{ github.workspace }}/czmq/include
         if: ${{ matrix.python-version == '3.10' || matrix.python-version == '3.11' || matrix.python-version == '3.12' }}
-        run: patch --strip 1 -i ${{ github.workspace }}/czmq.patch
+        run: patch --strip 1 -i ${{ github.workspace }}\czmq.patch
 
       - name: Rename ZeroMQ lib
         working-directory: ${{ github.workspace }}/libzmq
