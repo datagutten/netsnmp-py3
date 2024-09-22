@@ -173,6 +173,10 @@ jobs:
         working-directory: ${{ github.workspace }}/libzmq
         run: cp lib\libzmq-v142-mt-s-4_3_4.lib lib\zmq.lib
 
+      - name: Install setuptools
+        if: ${{ matrix.python-version == '3.12' }}
+        run: pip3 install setuptools
+
       - name: Python build
         shell: cmd
         run: |
