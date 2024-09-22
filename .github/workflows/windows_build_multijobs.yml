@@ -159,16 +159,14 @@ jobs:
           name: netsnmp
           path: ${{ github.workspace }}/net-snmp
 
-      - name: Patch CZMQ
+      - name: Patch CZMQ Python <= 3.9
         working-directory: ${{ github.workspace }}/czmq
         if: ${{ matrix.python-version == '3.7' || matrix.python-version == '3.8' || matrix.python-version == '3.9' }}
         run: patch include/czmq_prelude.h -i ${{ github.workspace }}\uint32_t.patch
 
-      - name: Patch CZMQ
+      - name: Patch CZMQ >= 3.10
         shell: bash
         working-directory: ${{ github.workspace }}/czmq/include
-        if: ${{ matrix.python-version == '3.10' }}
-        run: sed -i "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
         if: ${{ matrix.python-version == '3.10' || matrix.python-version == '3.11' || matrix.python-version == '3.12' }}
         run: patch --strip 1 < -i ${{ github.workspace }}/czmq.patch
 
