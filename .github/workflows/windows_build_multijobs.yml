@@ -167,7 +167,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/czmq/include
         if: ${{ matrix.python-version == '3.10' }}
-        run: sed "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
+        run: sed -i "s/typedef intptr_t ssize_t;/#typedef intptr_t ssize_t;/" czmq_prelude.h
 
       - name: Rename ZeroMQ lib
         working-directory: ${{ github.workspace }}/libzmq
